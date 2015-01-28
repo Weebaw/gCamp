@@ -7,8 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-brand">
+        <p>gCamp</p>
+      </div>
+    </div>
+  </nav>
 <%= yield %>
 
+<div class="container">
+<footer>
+  <hr>
+  <%= link_to "Terms", terms_path%>
+      |
+  <%= link_to "About", about_path%>
+</nav>
+</footer>
+</div>
 </body>
 </html>
