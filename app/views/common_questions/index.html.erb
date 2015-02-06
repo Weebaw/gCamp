@@ -1,0 +1,20 @@
+<div class=container>
+  <div class="page-header">
+    <h1>Frequently Asked Questions</h1>
+  </div>
+  <ul>
+    <% @faq_array.each do |faq_hash| %>
+      <li><u><%= link_to faq_hash[:question], "##{faq_hash[:slug]}" %></u>
+    <% end %>
+  </ul>
+
+  <% @faq_array.each do |faq_hash| %>
+    <h3 id="<%= faq_hash[:slug] %>"><%= faq_hash[:question]%></h3>
+    <%= faq_hash[:answer] %>
+    <p> </p>
+    <u><a href="#">top</a></u>
+  <% end %>
+
+
+
+</div>
