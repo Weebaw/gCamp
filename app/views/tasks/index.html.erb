@@ -1,15 +1,15 @@
 <div class="container">
-  <div class="parge-header">
+  <div class="page-header">
     <h1>Listing Tasks</h1>
   </div>
 
-<% @tasks.each do |task| %>
-<p>
-  <b>Description</b> <%= task.description %>
-</p>
-<p>
-  <%=  link_to "New Task", new_task_path %>
-</p>
-<% end %>
+  <% @tasks.each do |task| %>
+    <p>
+      <b>Description</b> <%= task.description %>
+    </p>
+  <% end %>
+  <p>
+    <u><%=  link_to "New Task", new_task_path %></u>
+  </p>
 
 </div>

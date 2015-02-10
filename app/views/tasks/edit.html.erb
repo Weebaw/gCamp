@@ -1,3 +1,5 @@
+<div class='container'
+
 <h1>Editing Task</h1>
 
 <%= form_for @task do |f|  %>
@@ -5,4 +7,7 @@
 <%= f.text_field :description %>
 <% end %>
 
-<%= link_to "Show", task_path(@task) %>
+<u><%= link_to "Show", task_path(@task) %></u>
+|
+<u><%=  link_to "Back", tasks_path %></u>
+</div>

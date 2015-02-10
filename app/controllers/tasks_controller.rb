@@ -8,14 +8,16 @@ class TasksController < ApplicationController
   end
 
   def create
-    task_params = params.require(:task).permit(:description)
+
     @task = Task.new(task_params)
-    @task.save
-    redirect_to task_path(@task), notice: "Task was successfully created"
+    if @task.save
+    flash[:notice] = "Task was successfully created"
+    redirect_to @task
+    end
   end
 
   def show
-    @task = task.find_params([:id])
+    @task = Task.find(params[:id])
   end
 
   def edit
@@ -25,8 +27,12 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     task_params = params.require(:task).permit(:description)
-    @product.update(task_params)
-    redirect_to tasks_path, notice: "Task was successfully updated"
+    @task.update(task_params)
+    redirect_to @task
+  end
+
+  def task_params
+    params.require(:task).permit(:description)
   end
 
 end
