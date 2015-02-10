@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="parge-header">
+    <h1>Listing Tasks</h1>
+  </div>
+
+<% @tasks.each do |task| %>
+<p>
+  <b>Description</b> <%= task.description %>
+</p>
+<p>
+  <%=  link_to "New Task", new_task_path %>
+</p>
+<% end %>
+
+</div>
