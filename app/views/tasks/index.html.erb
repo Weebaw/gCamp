@@ -6,10 +6,12 @@
   <% @tasks.each do |task| %>
     <p>
       <b>Description</b> <%= task.description %>
+      <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Fo Reals?"} %>
     </p>
   <% end %>
   <p>
     <u><%=  link_to "New Task", new_task_path %></u>
+
   </p>
 
 </div>
