@@ -1,13 +1,8 @@
 <div class='container'
 
-<h1>Editing Task</h1>
+<h1>Edit Task</h1>
 
-<%= form_for @task do |f|  %>
-<%= f.label :description %>
-<%= f.text_field :description %>
-<p></p>
-<%= f.submit "Update Task" %>
-<% end %>
+<%= render partial: "form", locals: {button_name: "Edit Task"}  %>
 
 <u><%= link_to "Show", task_path(@task) %></u>
 |
