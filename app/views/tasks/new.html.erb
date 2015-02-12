@@ -1,12 +1,11 @@
-<div class='container'
+<div class='container'>
 
 <h1>New Task</h1>
+<ol class="breadcrumb">
+  <li> <%= link_to "Tasks", tasks_path %></li>
+  <li class="active">New Task</li>
+</ol>
+<%= render partial: "form" %>
 
-<%= render partial: "form", locals: {button_name: "Create New Task"} %>
-<p> </p>
-
-<p>
-  <u><%=  link_to "Back", tasks_path %></u>
-</p>
 
 </div>
