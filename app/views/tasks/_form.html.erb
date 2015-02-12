@@ -5,9 +5,18 @@
       <%= f.label :description %>
     </div>
     <div class="col-sm-6">
-      <%= f.text_field :description %>
+      <%= f.text_field :description, class: 'form-control'%>
     </div>
   </div>
+
+<% unless @task.new_record? %>
+  <div class='form-group'>
+    <div class="col-sm-offset-1 col-sm-6">
+      <%= f.check_box :complete %>
+      <%= f.label :complete %>
+    </div> 
+  </div>
+<% end %>
 
   <div class="form-group">
     <div class="col-sm-offset-1 col-sm-6">

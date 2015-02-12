@@ -8,11 +8,12 @@ class TasksController < ApplicationController
   end
 
   def create
-
     @task = Task.new(task_params)
     if @task.save
-    flash[:notice] = "Task was successfully created"
-    redirect_to @task
+      flash[:notice] = "Task was successfully created"
+      redirect_to @task
+    else
+      render :new
     end
   end
 
@@ -26,7 +27,6 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    task_params = params.require(:task).permit(:description)
     @task.update(task_params)
     redirect_to @task
     flash[:notice] = "Task was successfully updated"
@@ -38,8 +38,9 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: "Task was Deleted"
   end
 
-  def task_params
-    params.require(:task).permit(:description)
-  end
+  private
 
+  def task_params
+    params.require(:task).permit(:description, :complete)
+  end
 end
