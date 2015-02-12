@@ -29,6 +29,7 @@ class TasksController < ApplicationController
     task_params = params.require(:task).permit(:description)
     @task.update(task_params)
     redirect_to @task
+    flash[:notice] = "Task was successfully updated"
   end
 
   def destroy
