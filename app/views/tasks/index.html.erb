@@ -17,28 +17,25 @@
     </thead>
 
     <tbody>
-      <% @tasks.each do |task| %>
+        <% @tasks.each do |task| %>
+      <tr>
+        <td>
+          <% if task.complete %>
+            <s><%= link_to task.description, task_path(task) %></s>
+          <% else %>
+            <%= link_to task.description, task_path(task) %>
+          <% end %>
+        </td>
 
-    <tr>
-      <td>
-
-      <u><%= link_to task.description, task_path(task) %></u>
-
-      </td>
-
-
-      <td>
-        <div class='pull-right'>
-          <%=  link_to "Edit", edit_task_path(task), class: "btn btn-info"%>
-          <%=  link_to "Delete", task_path(task), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}%>
-        </div>
-        <!-- <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %> -->
-      </td>
-    </tr>
-
-
+        <td>
+          <div class='pull-right'>
+            <%=  link_to "Edit", edit_task_path(task), class: "btn btn-info"%>
+            <%=  link_to "Delete", task_path(task), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}%>
+          </div>
+          <!-- <%= link_to "Delete", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %> -->
+        </td>
+      </tr>
     </tbody>
-
 
     <% end %>
   </table>
