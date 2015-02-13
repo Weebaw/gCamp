@@ -1,14 +1,22 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-7">
       <h1>
         <% if @task.complete == true %>
         <s><%= @task.description %></s>
         <% else %>
-        <%= @task.description %>
+          <%= @task.description %>
         <% end %>
       </h1>
     </div>
+
+<div class='col-md-3'>
+    <h1>
+      <% if @task.due_date %>
+      <%= @task.due_date.strftime("%m/%d/%Y") %>
+      <% end %>
+    </h1>
+</div>
 
     <div class="col-md-2">
       <div class='pull-right'>
@@ -25,7 +33,7 @@
 
   <ol class="breadcrumb">
     <li> <%= link_to "Tasks", tasks_path %></li>
-  <li class="active"> <%= @task.description %></li>
+    <li class="active"> <%= @task.description %></li>
   </ol>
 
 
