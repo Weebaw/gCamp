@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <h1>
+        <%= @user.first_name %> <%= @user.last_name %>
+
+      </h1>
+    </div>
+
+    <div class='col-md-3'>
+      <h1>
+        <%= @user.email %>
+
+      </h1>
+    </div>
+
+    <div class="col-md-4">
+      <div class='pull-right'>
+        <%=  link_to "Edit", edit_user_path, class: "btn btn-info margin-top-button" %>
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+  <hr>
+
+
+
+
+  <ol class="breadcrumb">
+    <li> <%= link_to "Users", users_path %></li>
+    <li class="active"> <%= @user.last_name %></li>
+  </ol>
+
+
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="page-header">
+    <div class='pull-right'>
+      <%=  link_to "New User", new_user_path, class: "btn btn-info"%>
+    </div>
+    <h1>Users</h1>
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Email
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= user.first_name %> <%= user.last_name %>
+        </td>
+
+        <td>
+          <u><%= link_to user.email, user_path(user) %></u>
+        </td>
+
+        <td>
+          <div class='pull-right'>
+            <%=  link_to "Edit", edit_user_path(user), class: "btn btn-info"%>
+            <%=  link_to "Delete", user_path(user), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}%>
+          </div>
+          <!-- <%= link_to "Delete", task_path(user), method: :delete, data: {confirm: "Are you sure?"} %> -->
+        </td>
+      </tr>
+    </tbody>
+
+    <% end %>
+  </table>
+
+
+</div>
