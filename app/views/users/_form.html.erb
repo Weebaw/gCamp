@@ -28,6 +28,10 @@
   <div class="col-sm-offset-1 col-sm-6">
     <%= f.submit class: "btn btn-primary"%>
     <%=  link_to "Cancel", users_path, class: "btn btn-default"%>
+    <% unless @user.new_record? %>
+    <%=  link_to "Delete", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}%>
+    <% end %>
+
   </div>
 </div>
 <% end %>
