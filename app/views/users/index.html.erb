@@ -23,7 +23,8 @@
       <% @users.each do |user| %>
       <tr>
         <td>
-          <%= user.first_name %> <%= user.last_name %>
+          <u><%= link_to user.first_name, user_path(user)%>
+          <%= link_to user.last_name, user_path(user)%></u>
         </td>
 
         <td>
@@ -32,8 +33,7 @@
 
         <td>
           <div class='pull-right'>
-            <%=  link_to "Edit", edit_user_path(user), class: "btn btn-info"%>
-            <%=  link_to "Delete", user_path(user), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}%>
+            <u><%=  link_to "Edit", edit_user_path(user)%></u>
           </div>
           <!-- <%= link_to "Delete", task_path(user), method: :delete, data: {confirm: "Are you sure?"} %> -->
         </td>
