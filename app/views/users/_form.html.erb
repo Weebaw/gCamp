@@ -31,19 +31,17 @@
 
   </div>
 </div>
+
     <div class="form-group">
       <div class='col-sm-offset-2 col-sm-4 control-label'>
-        <div class='well'>
-
-          <div class="text-center">
             <% unless @user.new_record? %>
+        <div class='well'>
+          <div class="text-center">
               <%=  link_to "Delete", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}%>
-            <% end %>
           </div>
         </div>
       </div>
     </div>
-
-<% end %>
-
+            <% end %>
+            <% end %>
 </div>
