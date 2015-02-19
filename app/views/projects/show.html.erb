@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="page-header">
+    <%=  link_to "Delete", project_path(@project), class: "btn btn-danger pull-right", method: :delete, data: {confirm: "Are you sure?"}%>
+    
+    <%=  link_to "Edit", edit_project_path, class: "btn btn-info pull-right margin-right" %>
+    <h1>
+      <%= @project.name %>
+    </h1>
+  </div>
+  </div>
