@@ -1,9 +1,9 @@
 .container
   =form_for(@project, html: {class: "form-horizontal"}) do |f|
     .form-group
-      .col-md-offset-2.col-md-7
-        .alert.alert-danger
-          -if @project.errors.any?
+      -if @project.errors.any?
+        .col-md-offset-2.col-md-7
+          .alert.alert-danger
             .h3
               =pluralize(@project.errors.count, "error")
               ="prohibited this form from being saved:"
