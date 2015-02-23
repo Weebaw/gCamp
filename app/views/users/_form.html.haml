@@ -1,0 +1,32 @@
+.container
+
+
+  = form_for @user, html: { class: "form-horizontal"} do |f|
+
+    .form-group
+      = f.label :first_name, class: "col-md-2 control-label"
+      .col-sm-4
+        = f.text_field :first_name, class: 'form-control', placeholder: 'First Name'
+
+    .form-group
+      = f.label :last_name, class: "col-md-2 control-label"
+      .col-sm-4
+        = f.text_field :last_name, class: "form-control", placeholder: 'Last Name'
+
+    .form-group
+      = f.label :email, class: "col-md-2 control-label"
+      .col-sm-4
+        = f.email_field :email, class: "form-control", placeholder: 'Email'
+
+    .form-group
+      .col-sm-offset-2.col-sm-6
+        = f.submit class: "btn btn-primary"
+        = link_to "Cancel", users_path, class: "btn btn-default"
+
+
+    .form-group
+      .col-sm-offset-2.col-sm-4.control-label
+        - unless @user.new_record?
+          .well
+            .text-center
+              =  link_to "Delete", user_path(@user), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}

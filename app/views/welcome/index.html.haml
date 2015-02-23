@@ -1,0 +1,61 @@
+.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    .navbar-brand
+      %p gCamp
+
+
+.container
+  .jumbotron
+    %h1 gCamp
+    %p Your life, organized
+
+  .row
+    %p.lead
+      .col-md-4
+        = image_tag('tablet.jpg', class: 'img-responsive')
+    %p.lead
+      .col-md-4
+        = image_tag('writing.jpg', class: 'img-responsive')
+    %p.lead
+      .col-md-4
+        = image_tag('notebook.jpg', class: 'img-responsive')
+
+
+  .row
+    .col-md-4
+      .panel.panel-primary
+        .panel-heading
+          %h3 Tasks
+        .panel-body
+          Grouped by projects and lists. Just the way you like'em
+
+    .col-md-4
+      .panel.panel-primary
+        .panel-heading
+          %h3 Permissions
+        .panel-body
+          Fine-grained Permissions
+
+    .col-md-4
+      .panel.panel-primary
+        .panel-heading
+          %h3 Comments
+        .panel-body
+          %ul
+            %li
+              Comment on tasks and documents
+              Get email notifications
+
+  .quotes
+    %p
+      %em= @quotes_array[0][:content]
+    .text-muted
+      %em= @quotes_array[0][:author]
+    %p
+      %em= @quotes_array[1][:content]
+    .text-muted
+      %em= @quotes_array[1][:author]
+    %p
+      %em= @quotes_array[2][:content]
+    .text-muted
+      %em= @quotes_array[2][:author]

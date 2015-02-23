@@ -1,0 +1,8 @@
+.container
+  %h1 Edit Task
+  %ol.breadcrumb
+    %li
+      = link_to "Tasks", tasks_path
+      %li.active Edit Task
+
+  = render partial: "form"
