@@ -1,37 +1,26 @@
-= form_for @task, html: { class: "form-horizontal"} do |f|
-  .form-group
-    -if @task.errors.any?
-      .col-md-offset-1.col-md-7
-        .alert.alert-danger
-          .h3
-            =pluralize(@task.errors.count, "error")
-            ="prohibited this form from being saved"
-          -@task.errors.full_messages.each do |message|
-            .ul
-              %li
-                =message
+.container
 
+=form_for @task, html: { class: "form-horizontal"} do |f|
+
+  =render partial: "shared/errors", locals: {object: @task}
 
   .form-group
-    = f.label :description, class: "col-md-1 control-label"
+    = f.label :description, class: "col-md-2 control-label"
     .col-sm-6
       = f.text_field :description, class: 'form-control'
 
-
   .form-group
-    = f.label :due_date, class: "col-md-1"
+    = f.label :due_date, class: "col-md-2 control-label"
     .col-sm-3
       = f.date_field :due_date, class: "form-control"
 
-
   -unless @task.new_record?
     .form-group
-      .col-sm-offset-1.col-sm-6
+      .col-sm-offset-2.col-sm-6
         = f.check_box :complete
         = f.label :complete
 
-
   .form-group
-    .col-sm-offset-1.col-sm-6
+    .col-sm-offset-2.col-sm-6
       = f.submit class: "btn btn-primary"
       =  link_to "Cancel", tasks_path, class: "btn btn-default"

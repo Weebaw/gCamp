@@ -1,18 +1,8 @@
 .container
+
   = form_for @user, html: { class: "form-horizontal"} do |f|
 
-    .form-group
-      -if @user.errors.any?
-        .col-md-offset-2.col-md-7
-          .alert.alert-danger
-            .h3
-              =pluralize(@user.errors.count, "error")
-              ="prohibited this form from being saved:"
-            -@user.errors.full_messages.each do |message|
-              .ul
-                %li
-                  =message
-
+    =render partial: "shared/errors", locals: {object: @user}
 
     .form-group
       = f.label :first_name, class: "col-md-2 control-label"

@@ -1,0 +1,11 @@
+.form-group
+  -if object.errors.any?
+    .col-md-offset-2.col-md-7
+      .alert.alert-danger
+        .h3
+          =pluralize(object.errors.count, "error")
+          ="prohibited this form from being saved:"
+        -object.errors.full_messages.each do |message|
+          .ul
+            %li
+              =message
