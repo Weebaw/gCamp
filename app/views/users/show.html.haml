@@ -5,19 +5,19 @@
       = @user.first_name
       = @user.last_name
 
-    %dl.dl-horizontal
-      %p
-        %dt
-          %b First Name
-        %dd
-          = @user.first_name
-      %p
-        %dt
-          %b Last Name
-        %dd
-          = @user.last_name
-      %p
-        %dt
-          %b Email
-        %dd
-          = mail_to @user.email
+  %dl.dl-horizontal
+    %p
+      %dt
+        %b First Name
+      %dd
+        = @user.first_name
+    %p
+      %dt
+        %b Last Name
+      %dd
+        = @user.last_name
+    %p
+      %dt
+        %b Email
+      %dd
+        = mail_to @user.email
