@@ -5,8 +5,14 @@
   = csrf_meta_tags
 %body
   %nav.navbar.navbar-inverse.navbar-fixed-top
-    .container
-      .navbar-brand{:href => "#"} gCamp
+    .navbar-brand{:href => "#"} gCamp
+    .navbar-brand.pull-right
+      -if current_user
+        =link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user)
+        =link_to "Sign Out", sign_out_path
+      -else
+        =link_to "Sign Up", sign_up_path
+
 .container
   - if flash[:notice]
     .alert.alert-success= flash[:notice]
