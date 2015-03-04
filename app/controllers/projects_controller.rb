@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  before_action :ensure_current_user
+
+
   def index
     @projects = Project.all
   end
@@ -43,6 +46,13 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name)
+  end
+
+  def ensure_current_user
+    unless current_user
+      flash[:error] = "You must sign in"
+      redirect_to sign_in_path
+    end
   end
 
 end

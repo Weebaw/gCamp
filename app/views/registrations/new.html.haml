@@ -2,6 +2,15 @@
   .well.col-sm-offset-3.col-md-6
     .page-header
       %h3 Sign up for gCamp!
+
+    .form-group
+      -if @user.errors.any?
+        .text.text-danger
+          .h3
+          -@user.errors.full_messages.each do |message|
+            .ul
+              =message
+
     = form_for @user, url: sign_up_path, html: { class: "form"} do |f|
 
       .form-group
