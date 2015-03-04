@@ -4,7 +4,7 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-
+require 'capybara/rspec'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -50,7 +50,7 @@ RSpec.configure do |config|
 end
 
 def sign_in_user
-  user = User.new(first_name: 'George', last_name: 'Clinton' email: 'parliament@mothershipconnection.com', password: 'bringthafunk', password_confirmation: 'bringthafunk')
+  user = User.new(first_name: 'George', last_name: 'Clinton', email: 'parliament@mothershipconnection.com', password: 'bringthafunk', password_confirmation: 'bringthafunk')
   user.save!
   visit sign_in_path
   fill_in :email, with: 'parliament@mothershipconnection.com'
