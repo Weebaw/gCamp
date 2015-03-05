@@ -79,6 +79,7 @@ end
 
     click_on "Delete"
 
+    expect(page).to have_content "Task was successfully deleted"
     expect(page).not_to have_content "errands"
   end
 
