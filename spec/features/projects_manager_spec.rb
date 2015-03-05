@@ -21,8 +21,6 @@ feature 'Existing users CRUD users' do
 
   scenario "can make a new project from the new project form" do
 
-
-
     sign_in_user
     visit (projects_path)
     click_link 'New Project'

@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 feature 'user signup' do
+
+  before :each do
+    User.destroy_all
+  end
+
   scenario 'user can sign up' do
     visit root_path
     expect(page).to have_content 'gCamp'
