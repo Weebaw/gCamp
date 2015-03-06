@@ -11,11 +11,15 @@
 
       .col-md-5
         .pull-right
-          =  link_to "Edit", edit_task_path, class: "btn btn-info margin-top-button"
+          =  link_to "Edit", edit_project_task_path(@project, @task), class: "btn btn-info margin-top-button"
 
   %ol.breadcrumb
     %li
-      = link_to "Tasks", tasks_path
+      = link_to "Projects", projects_path
+    %li
+      = link_to @project.name, project_path(@project)
+    %li
+      = link_to "Tasks", project_tasks_path
     %li.active= @task.description
 
   .row

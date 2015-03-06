@@ -5,3 +5,15 @@
     = link_to "Edit", edit_project_path, class: "btn btn-info pull-right margin-right"
     %h1
       = @project.name
+
+
+  %ol.breadcrumb
+    %li
+      = link_to "Projects", projects_path
+    %li.active
+      = @project.name
+
+  -if @project.tasks.count == 1
+    =link_to "#{@project.tasks.count} Task ", project_tasks_path(@project)
+  -else
+    =link_to "#{@project.tasks.count} Tasks ", project_tasks_path(@project)

@@ -6,11 +6,15 @@
       %h1 Projects
     %table.table
       %thead
-        %b Name
         %tr
           %th
+            %b Name
+          %th
+            %b Tasks
         %tbody
-          - @projects.each do |projects|
+          - @projects.each do |project|
             %tr
               %td
-                = link_to projects.name, project_path(projects)
+                = link_to project.name, project_path(project)
+              %td
+                = link_to project.tasks.count, project_tasks_path(project, @task)

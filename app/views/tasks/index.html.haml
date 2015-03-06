@@ -1,16 +1,23 @@
 .container
   .page-header
-    .pull-right
-      =  link_to "New Task", new_task_path, class: "btn btn-info margin-top-button"
+    =  link_to "New Task", new_project_task_path(@project), class: "btn btn-info pull-right"
+    %h1 Tasks for #{@project.name}
 
-  %h1 Listing Tasks
+
+  %ol.breadcrumb
+    %li
+      = link_to "Projects", projects_path
+    %li.active
+      = link_to @project.name, project_path(@project)
+    %li.active
+      Tasks
 
   %table.table
     %thead
       %tr
         %th
           Description
-        %th  
+        %th
           Due Date
 
     %tbody
@@ -20,10 +27,10 @@
             - if task.complete
               %u
                 %s
-                  = link_to task.description, task_path(task)
+                  = link_to task.description, project_task_path(@project, task)
             - else
               %u
-                = link_to task.description, task_path(task)
+                = link_to task.description, project_task_path(@project, task)
 
 
           %td
@@ -32,5 +39,5 @@
             -else
           %td
             .pull-right
-              =  link_to "Edit", edit_task_path(task), class: "btn btn-info"
-              =  link_to "Delete", task_path(task), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}
+              =  link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-info"
+              =  link_to "Delete", project_task_path(@project, task), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}

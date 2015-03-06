@@ -8,18 +8,18 @@ Rails.application.routes.draw do
 
    get '/faq' => 'common_questions#index'
 
-   resources :tasks
-
    resources :users
 
-   resources :projects
+   resources :projects do
+     resources :tasks
+   end
 
    get "/sign-up" => "registrations#new"
    post "/sign-up" => "registrations#create"
    get "/sign-out" => "authentication#destroy"
    get "sign-in" => "authentication#new"
    post "sign-in" => "authentication#create"
-   
+
 
 
 end
