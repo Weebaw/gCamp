@@ -1,4 +1,4 @@
-require 'rails_helper'
+cdrequire 'rails_helper'
 
   feature "sign-out" do
 

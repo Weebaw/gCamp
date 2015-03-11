@@ -10,8 +10,11 @@ Rails.application.routes.draw do
 
    resources :users
 
+   
+
    resources :projects do
      resources :tasks
+     resources :memberships
    end
 
    get "/sign-up" => "registrations#new"
@@ -19,7 +22,6 @@ Rails.application.routes.draw do
    get "/sign-out" => "authentication#destroy"
    get "sign-in" => "authentication#new"
    post "sign-in" => "authentication#create"
-
 
 
 end

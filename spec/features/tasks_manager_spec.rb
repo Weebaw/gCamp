@@ -14,21 +14,7 @@ feature 'Existing users CRUD task' do
     sign_in_user
     expect(current_path).to eq root_path
 
-    visit projects_path
-    expect(page).to have_content "Projects"
-
-    click_on "school"
-    expect(page).to have_content "school"
-
-    expect(page).to have_content "0 Tasks"
-
-    click_on "0 Tasks"
-    expect(page).to have_content "Tasks for school"
-
-    click_on "New Task"
-    fill_in :task_description, with: "homework"
-
-    click_on "Create Task"
+    create_task
 
     expect(current_path).to eq project_tasks_path(project)
   end
@@ -157,6 +143,6 @@ end
     click_on "Delete"
 
     expect(page).to have_content "Task was successfully deleted"
-    expect(page).not_to have_content "errands"
+    expect(page).not_to have_content "homework"
   end
 end

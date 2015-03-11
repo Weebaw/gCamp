@@ -6,6 +6,7 @@
     %h1
       = @project.name
 
+    = link_to "Add Member", project_memberships_path(@project)
 
   %ol.breadcrumb
     %li
@@ -17,3 +18,8 @@
     =link_to "#{@project.tasks.count} Task ", project_tasks_path(@project)
   -else
     =link_to "#{@project.tasks.count} Tasks ", project_tasks_path(@project)
+  %br
+  -if @project.memberships.count == 1
+    =link_to "#{@project.memberships.count} Membership", project_memberships_path(@project)
+  -else
+    =link_to "#{@project.memberships.count} Memberships", project_memberships_path(@project)

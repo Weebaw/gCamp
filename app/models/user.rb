@@ -8,4 +8,12 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates :password_confirmation, presence: true
 
+  has_many :projects, through: :memberships
+
+  has_many :memberships
+
+  def full_name
+    "#{first_name.capitalize} #{last_name.capitalize}"
+  end
+
 end
