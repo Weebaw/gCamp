@@ -27,3 +27,26 @@
       - if @task.due_date
         Due on:
         = @task.due_date.strftime("%m/%d/%Y")
+
+  %h2 Comments
+  .comments
+    - @task.comments.each do |comment|
+      .row
+        .col-md-3
+          .row
+            .col-md-12
+              = link_to comment.user.full_name, user_path(comment.user)
+          .row
+            .col-md-12
+              = time_ago_in_words(comment.created_at)
+        .col-md-9
+          %p= comment.content
+        %br
+
+  = form_for [@project, @task, @comment], html: {class: 'form-horizontal'} do |f|
+    .form-group
+      .col-md-offset-3.col-md-9
+        = f.text_area :content, class: 'form-control'
+    .form-group
+      .col-md-offset-3.col-md-7
+        = f.submit 'Add Comment', class: 'btn btn-primary'

@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
 
    root 'welcome#index'
@@ -10,10 +11,13 @@ Rails.application.routes.draw do
 
    resources :users
 
-   
+
+
 
    resources :projects do
-     resources :tasks
+     resources :tasks do
+       resources :comments
+     end
      resources :memberships
    end
 

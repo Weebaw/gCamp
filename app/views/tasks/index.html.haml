@@ -28,10 +28,11 @@
               %u
                 %s
                   = link_to task.description, project_task_path(@project, task)
+
             - else
               %u
                 = link_to task.description, project_task_path(@project, task)
-
+            .badge=task.comments.count
 
           %td
             - if task.due_date
@@ -39,5 +40,5 @@
             -else
           %td
             .pull-right
-              =  link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-info"
-              =  link_to "Delete", project_task_path(@project, task), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"}
+              =  link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-info margin-right"
+              = link_to ' ', project_task_path(@project, task), method: :delete, class: "glyphicon glyphicon-remove"

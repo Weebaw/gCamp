@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 
   has_many :memberships
 
+  has_many :tasks, through: :comments
+
+  has_many :comments
+
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
   end

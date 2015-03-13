@@ -25,6 +25,7 @@ class TasksController < ApplicationController
 
   def show
     @task = @project.tasks.find(params[:id])
+    @comment = Comment.new
   end
 
   def edit
@@ -34,11 +35,11 @@ class TasksController < ApplicationController
   def update
     @task = @project.tasks.find(params[:id])
     if @task.update(task_params)
-    redirect_to project_tasks_path(@project, @task)
-    flash[:notice] = "Task was successfully updated"
-  else
-    render :edit
-  end
+      redirect_to project_tasks_path(@project, @task)
+      flash[:notice] = "Task was successfully updated"
+    else
+      render :edit
+    end
   end
 
   def destroy
