@@ -21,3 +21,10 @@
     =link_to "#{@project.memberships.count} Membership", project_memberships_path(@project)
   -else
     =link_to "#{@project.memberships.count} Memberships", project_memberships_path(@project)
+
+  .well
+    %h3 Deleted Project
+    %p
+      ="Deleting this projct will also delete #{pluralize(@project.memberships.count, 'member')}, #{pluralize(@project.tasks.count, 'task')} and associated comments "
+    %p
+      =link_to "Delete", project_path(@project), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure"}
