@@ -3,8 +3,8 @@ class Task < ActiveRecord::Base
 
   belongs_to :projects
 
-  has_many :comments, through: :users
-  has_many :comments
-  
+  has_many :comments, through: :users, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
 
 end

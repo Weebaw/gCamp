@@ -140,7 +140,7 @@ end
 
     click_on "Create Task"
 
-    click_on "Delete"
+    page.find('.glyphicon-remove').click
 
     expect(page).to have_content "Task was successfully deleted"
     expect(page).not_to have_content "homework"
