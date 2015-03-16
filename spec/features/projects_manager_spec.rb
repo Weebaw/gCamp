@@ -76,7 +76,9 @@ feature 'Existing users CRUD users' do
 
     click_on "bam"
 
-    click_on "Delete"
+    within(".well") do
+      click_on "Delete"
+    end
 
     expect(page).to have_content "Project was successfully deleted"
     expect(page).not_to have_content "Jon"
