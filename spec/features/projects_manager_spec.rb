@@ -23,7 +23,9 @@ feature 'Existing users CRUD users' do
 
     sign_in_user
     visit (projects_path)
-    click_link 'New Project'
+    within(".dropdown") do
+      click_on 'New Project'
+    end
 
     expect(current_path).to eq new_project_path
 
