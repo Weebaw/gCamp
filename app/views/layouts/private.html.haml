@@ -1,0 +1,53 @@
+%head
+  %title
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+%body
+  %nav.navbar.navbar-inverse.navbar-fixed-top
+    .container
+      .row
+        .navbar-header.col-md-12
+          %ul.nav.navbar-nav.navbar-right
+            -if current_user
+              %li= link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user.id)
+              %li= link_to 'Sign Out', sign_out_path
+            -else
+              %li= link_to 'Sign Up', sign_up_path
+              %li= link_to 'Sign In', sign_in_path
+
+          = link_to "gCamp", projects_path, class:"navbar-brand"
+          .dropdown1
+            .dropdown-toggle{"data-toggle" => "dropdown", :class => "navbar-brand", :href => "#"}
+              Projects
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+
+              - current_user.projects.each do |project|
+                %li= link_to project.name, project_path(project)
+
+              %li.divider{:role => "presentation"}
+
+              %li{:role => "presentation"}
+                %a{:href => new_project_path, :role => "menuitem", } New Project
+
+          = link_to "Users", users_path, class:"navbar-brand"
+
+
+        %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
+        %script{:src => "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"}
+
+
+
+= yield
+.container.text-center
+  %footer
+    %hr
+      -if current_user
+        = link_to "Home", root_path
+        |
+        \#{link_to "Terms", terms_path}
+        |
+        \#{link_to "FAQ", faq_path}
+        |
+        \#{link_to "About", about_path}
