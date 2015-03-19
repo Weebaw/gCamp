@@ -21,7 +21,7 @@ feature 'user signup' do
     fill_in :user_password_confirmation, with: 'curlyfro'
     click_button 'Sign Up'
 
-    expect(current_path).to eq '/'
+    expect(current_path).to eq new_project_path
     expect(page).to have_content 'You have successfully signed up'
   end
 end
