@@ -1,37 +1,38 @@
-%head
-  %title
-  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-  = javascript_include_tag 'application', 'data-turbolinks-track' => true
-  = csrf_meta_tags
-%body
-  %nav.navbar.navbar-inverse.navbar-fixed-top
-    .container
-      .row
-        .navbar-header.col-md-12
-          %ul.nav.navbar-nav.navbar-right
-            -if current_user
-              %li= link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user.id)
-              %li= link_to 'Sign Out', sign_out_path
-            -else
-              %li= link_to 'Sign Up', sign_up_path
-              %li= link_to 'Sign In', sign_in_path
+.continer
+  %head
+    %title
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .row
+          .navbar-header.col-md-12
+            %ul.nav.navbar-nav.navbar-right
+              -if current_user
+                %li= link_to "#{current_user.first_name} #{current_user.last_name}", user_path(current_user.id)
+                %li= link_to 'Sign Out', sign_out_path
+              -else
+                %li= link_to 'Sign Up', sign_up_path
+                %li= link_to 'Sign In', sign_in_path
 
-          = link_to "gCamp", projects_path, class:"navbar-brand"
-          #bs-example-navbar-collapse-1.collapse.navbar-collapse
-            %ul.nav.navbar-nav
-              %li.dropdown
-                %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                  Projects
-                  %span.caret
-                %ul.dropdown-menu{:role => "menu"}
-                  - current_user.projects.each do |project|
-                    %li= link_to project.name, project_path(project)
-                  %li.divider
-                  %li= link_to 'New Project', new_project_path
+            = link_to "gCamp", projects_path, class:"navbar-brand"
+            #bs-example-navbar-collapse-1.collapse.navbar-collapse
+              %ul.nav.navbar-nav
+                %li.dropdown
+                  %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                    Projects
+                    %span.caret
+                  %ul.dropdown-menu{:role => "menu"}
+                    - current_user.projects.each do |project|
+                      %li= link_to project.name, project_path(project)
+                    %li.divider
+                    %li= link_to 'New Project', new_project_path
 
-                %li
-                  %a{:href => users_path} Users
-=flash[:notice]
+                  %li
+                    %a{:href => users_path} Users
+  =flash[:notice]
 = yield
 .container.text-center
   %footer
