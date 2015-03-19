@@ -17,27 +17,20 @@
               %li= link_to 'Sign In', sign_in_path
 
           = link_to "gCamp", projects_path, class:"navbar-brand"
-          .dropdown1
-            .dropdown-toggle{"data-toggle" => "dropdown", :class => "navbar-brand", :href => "#"}
-              Projects
-              %span.caret
-            %ul.dropdown-menu{:role => "menu"}
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            %ul.nav.navbar-nav
+              %li.dropdown
+                %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  Projects
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  - current_user.projects.each do |project|
+                    %li= link_to project.name, project_path(project)
+                  %li.divider
+                  %li= link_to 'New Project', new_project_path
 
-              - current_user.projects.each do |project|
-                %li= link_to project.name, project_path(project)
-
-              %li.divider{:role => "presentation"}
-
-              %li{:role => "presentation"}
-                %a{:href => new_project_path, :role => "menuitem", } New Project
-
-          = link_to "Users", users_path, class:"navbar-brand"
-
-
-        %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
-        %script{:src => "http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"}
-
-
+                %li
+                  %a{:href => users_path} Users
 
 = yield
 .container.text-center
