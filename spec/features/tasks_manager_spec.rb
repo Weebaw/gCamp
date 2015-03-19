@@ -12,7 +12,7 @@ feature 'Existing users CRUD task' do
     project = Project.create!(name: 'school')
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     create_task
 
@@ -24,7 +24,7 @@ feature 'Existing users CRUD task' do
     project = Project.create!(name: 'school')
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
@@ -58,7 +58,7 @@ end
     project = Project.create!(name: 'school')
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
@@ -88,7 +88,7 @@ end
     project = Project.create!(name: 'school')
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
@@ -122,7 +122,7 @@ end
     project = Project.create!(name: 'school')
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"

@@ -13,7 +13,7 @@ feature 'Existing users CRUD users' do
     bam.save!
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "bam"

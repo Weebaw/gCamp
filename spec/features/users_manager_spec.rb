@@ -9,7 +9,7 @@ feature 'Existing users CRUD users' do
   scenario "index lists all users with name, and email" do
 
     sign_in_user
-    expect(current_path).to eq root_path
+    expect(current_path).to eq projects_path
 
     visit users_path
     expect(page).to have_content "Users"
