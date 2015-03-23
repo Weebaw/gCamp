@@ -1,4 +1,4 @@
-.continer
+.container
   %head
     %title
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
@@ -32,7 +32,13 @@
 
                   %li
                     %a{:href => users_path} Users
-  =flash[:notice]
+
+  - if flash[:notice]
+    .alert.alert-success= flash[:notice]
+
+  - if flash[:error]
+    .alert.alert-danger= flash[:error]
+
 = yield
 .container.text-center
   %footer
