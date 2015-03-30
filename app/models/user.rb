@@ -20,4 +20,20 @@ class User < ActiveRecord::Base
     "#{first_name.capitalize} #{last_name.capitalize}"
   end
 
+  def membership(project)
+    self.memberships.find_by(project_id: project.id) !=nil
+  end
+
+  def membership_owner(project)
+    if self.memberships.find_by(project_id: project.id)
+      self.memberships.find_by(project_id: project.id).role == "Owner"
+    else
+      false
+    end
+  end
+
+  def membership_member(project)
+    self.memberships.find_by(project_id: project.id).role == "Member"
+  end
+
 end

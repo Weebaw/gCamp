@@ -7,4 +7,22 @@ class ApplicationController < ActionController::Base
       @current_user = User.find_by_id(session[:user_id])
     end
 
+    def verify_membership
+      unless current_user.membership(@project)
+        flash[:error] = "You do not have access to that project"
+        redirect_to projects_path
+      end
+    end
+
+    def verify_owner
+      unless current_user.membership_owner(@project)
+        flash[:error] = "You do not have access to that project"
+        redirect_to projects_path(@project)
+      end
+    end
+
+    def set_project
+      @project = Project.find(params[:id])
+    end
+
 end

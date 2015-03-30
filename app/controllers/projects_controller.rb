@@ -1,9 +1,12 @@
 class ProjectsController < PrivateController
   before_action :ensure_current_user
+  before_action :set_project, except: [:new, :create, :index]
+  before_action :verify_membership, except: [:new, :create, :index]
+  before_action :verify_owner, only: [:edit]
 
 
   def index
-    @projects = Project.all
+      @projects = current_user.projects
   end
 
   def new
@@ -56,5 +59,7 @@ class ProjectsController < PrivateController
       redirect_to sign_in_path
     end
   end
+
+
 
 end

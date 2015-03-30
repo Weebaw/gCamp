@@ -1,5 +1,7 @@
 class UsersController < PrivateController
   before_action :ensure_current_user
+  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :cant_edit, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -39,9 +41,14 @@ class UsersController < PrivateController
 
   def destroy
     user = User.find(params[:id])
+    if @user == current_user
+    user.destroy
+    redirect_to users_path
+  else
     user.destroy
     redirect_to users_path, notice: "User was successfully deleted"
   end
+end
 
   private
 
@@ -54,6 +61,17 @@ class UsersController < PrivateController
       flash[:error] = "You must sign in"
       redirect_to sign_in_path
     end
+  end
+
+  def cant_edit
+    if current_user != @user
+
+      render file: 'public/404.html', status: :not_found, layout: false
+    end
+  end
+
+  def set_user
+      @user = User.find(params[:id])
   end
 
 

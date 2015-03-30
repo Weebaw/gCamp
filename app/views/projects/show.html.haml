@@ -1,7 +1,7 @@
 .container
   .page-header
-
-    = link_to "Edit", edit_project_path, class: "btn btn-info pull-right margin-right"
+    -if current_user.membership_owner(@project)
+      = link_to "Edit", edit_project_path, class: "btn btn-info pull-right margin-right"
     %h1
       = @project.name
 
@@ -21,9 +21,11 @@
   -else
     =link_to "#{@project.memberships.count} Memberships", project_memberships_path(@project)
 
-  .well
-    %h3 Deleted Project
-    %p
-      ="Deleting this projct will also delete #{pluralize(@project.memberships.count, 'member')}, #{pluralize(@project.tasks.count, 'task')} and associated comments "
-    %p
-      =link_to "Delete", project_path(@project), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure"}
+
+  -if current_user.membership_owner(@project)
+    .well
+      %h3 Deleted Project
+      %p
+        ="Deleting this projct will also delete #{pluralize(@project.memberships.count, 'member')}, #{pluralize(@project.tasks.count, 'task')} and associated comments "
+      %p
+        =link_to "Delete", project_path(@project), class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure"}
