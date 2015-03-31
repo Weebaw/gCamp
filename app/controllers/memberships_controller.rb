@@ -1,17 +1,14 @@
 class MembershipsController < PrivateController
   helper_method :owner_count
   helper_method :ensure_last_owner
-  # helper_method :membership_owner
   before_action do
     @project = Project.find(params[:project_id])
   end
-  # before_action do
-  #   @membership = Membership.find(params[:id])
-  # end
   before_action :logged_in_users_without_access, only: [:edit, :update, :destroy]
   before_action :verify_membership, except: [:new, :create, :index]
   before_action :verify_owner, only: [:edit]
   before_action :ensure_last_owner, only: [:update, :destroy]
+  before_action :ensure_current_user
 
 
 
@@ -70,6 +67,13 @@ private
         flash[:error] = "Projects must have at least one owner"
         redirect_to project_memberships_path(@project)
       end
+    end
+  end
+
+  def ensure_current_user
+    unless current_user
+      flash[:error] = "You must sign in"
+      redirect_to sign_in_path
     end
   end
 end
