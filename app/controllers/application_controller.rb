@@ -8,15 +8,15 @@ class ApplicationController < ActionController::Base
     end
 
     def verify_membership
-      unless current_user.membership(@project)
-        flash[:error] = "You do not have access to that project"
+      unless current_user.membership(@project) || current_user.admin == true
+        flash[:error] = " to that project"
         redirect_to projects_path
       end
     end
 
     def verify_owner
-      unless current_user.membership_owner(@project)
-        flash[:error] = "You do not have access to that project"
+      unless current_user.membership_owner(@project) || current_user.admin == true
+        flash[:error] = " to that project"
         redirect_to projects_path(@project)
       end
     end

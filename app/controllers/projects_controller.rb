@@ -1,4 +1,5 @@
 class ProjectsController < PrivateController
+
   before_action :ensure_current_user
   before_action :set_project, except: [:new, :create, :index]
   before_action :verify_membership, except: [:new, :create, :index]
@@ -7,6 +8,7 @@ class ProjectsController < PrivateController
 
   def index
       @projects = current_user.projects
+      @projects_admin = Project.all
   end
 
   def new
@@ -54,10 +56,14 @@ class ProjectsController < PrivateController
   end
 
   def ensure_current_user
-    unless current_user
+    if !current_user
       flash[:error] = "You must sign in"
       redirect_to sign_in_path
     end
+  end
+
+  def ensure_admin
+    current_user.admin
   end
 
 

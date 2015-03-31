@@ -49,7 +49,7 @@ class MembershipsController < PrivateController
 private
 
   def logged_in_users_without_access
-    if !current_user.memberships.pluck(:project_id).include?(@project.id)
+    unless current_user.memberships.pluck(:project_id).include?(@project.id) || current_user.admin == true
       flash[:error] = "You do not have access"
       redirect_to project_path(@project)
     end

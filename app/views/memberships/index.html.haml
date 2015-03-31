@@ -22,7 +22,7 @@
 
 
 
-  -if current_user.membership_owner(@project)
+  -if current_user.membership_owner(@project) || current_user.admin == true
     .row
       .col-md-7
         = form_for [@project, @membership], html: { class: "form-inline"} do |f|
@@ -46,7 +46,7 @@
                   %td
                     =link_to membership.user.full_name, user_path(membership.user)
                   %td
-                    -if current_user.membership_owner(@project) && owner_count == 1
+                    -if (current_user.membership_owner(@project) && owner_count >= 1) || current_user.admin == true
 
                       =f.collection_select(:role, Membership::ROLE, :to_s, :to_s, {prompt: membership.role}, class: "form-control")
                       %td
@@ -64,5 +64,3 @@
                       - if current_user.id == membership.user_id
                         %td
                           = link_to ' ', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
-                    -# -else
-                    -#   ="#{membership.role}"

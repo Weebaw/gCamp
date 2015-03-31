@@ -1,6 +1,6 @@
 .container
   .page-header
-    -if current_user.membership_owner(@project)
+    -if current_user.membership_owner(@project) || current_user.admin
       = link_to "Edit", edit_project_path, class: "btn btn-info pull-right margin-right"
     %h1
       = @project.name
@@ -22,7 +22,7 @@
     =link_to "#{@project.memberships.count} Memberships", project_memberships_path(@project)
 
 
-  -if current_user.membership_owner(@project)
+  -if current_user.membership_owner(@project) || current_user.admin
     .well
       %h3 Deleted Project
       %p

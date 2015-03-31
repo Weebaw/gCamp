@@ -26,14 +26,14 @@ class User < ActiveRecord::Base
 
   def membership_owner(project)
     if self.memberships.find_by(project_id: project.id)
-      self.memberships.find_by(project_id: project.id).role == "Owner"
+      self.memberships.find_by(project_id: project.id).role == "Owner" || self.admin
     else
       false
     end
   end
 
   def membership_member(project)
-    self.memberships.find_by(project_id: project.id).role == "Member"
+    self.memberships.find_by(project_id: project.id).role == "Member" || self.admin
   end
 
 end

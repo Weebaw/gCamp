@@ -32,29 +32,34 @@ class UsersController < PrivateController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-    redirect_to @user
-    flash[:notice] = "User was successfully updated"
-  else
-    render :edit
-  end
+      redirect_to @user
+      flash[:notice] = "User was successfully updated"
+    else
+      render :edit
+    end
   end
 
   def destroy
     user = User.find(params[:id])
     if @user == current_user
-    user.destroy
-    redirect_to users_path
-  else
-    user.destroy
-    redirect_to users_path, notice: "User was successfully deleted"
+      user.destroy
+      redirect_to users_path
+    else
+      user.destroy
+      redirect_to users_path, notice: "User was successfully deleted"
   end
 end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    if current_user.admin
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :admin)
+    else
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
+end
+
 
   def ensure_current_user
     unless current_user
@@ -64,9 +69,10 @@ end
   end
 
   def cant_edit
-    if current_user != @user
-
-      render file: 'public/404.html', status: :not_found, layout: false
+    unless current_user.admin
+      if current_user != @user
+        render file: 'public/404.html', status: :not_found, layout: false
+      end
     end
   end
 

@@ -35,6 +35,12 @@
         = link_to "Cancel", users_path, class: "btn btn-default"
 
 
+    -if current_user.admin
+      .form-group
+        .col-sm-offset-2.col-sm-6
+          = f.check_box :admin
+          = f.label :admin
+
     .form-group
       .col-sm-offset-2.col-sm-4.control-label
         - unless @user.new_record?

@@ -21,10 +21,10 @@
               = link_to user.last_name, user_path(user)
           %td
             %u
-              -if current_user == user
+              -if current_user == user || current_user.admin
                 = link_to user.email, user_path(user)
           %td
             .pull-right
               %u
-                -if user == current_user
+                -if user == current_user || current_user.admin
                   =  link_to "Edit", edit_user_path(user)
