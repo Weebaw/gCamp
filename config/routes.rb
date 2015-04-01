@@ -27,5 +27,7 @@ Rails.application.routes.draw do
    get "sign-in" => "authentication#new"
    post "sign-in" => "authentication#create"
 
+   resources :tracker_projects, only: [:show]
+
 
 end

@@ -3,12 +3,17 @@ class ProjectsController < PrivateController
   before_action :ensure_current_user
   before_action :set_project, except: [:new, :create, :index]
   before_action :verify_membership, except: [:new, :create, :index]
-  before_action :verify_owner, only: [:edit]
+  before_action :verify_owner, only: [:edit, :update, :destroy]
 
 
   def index
       @projects = current_user.projects
       @projects_admin = Project.all
+      tracker_api = TrackerAPI.new
+      if current_user.pivotaltoken
+      @tracker_projects = tracker_api.projects(current_user.pivotaltoken)
+
+    end
   end
 
   def new

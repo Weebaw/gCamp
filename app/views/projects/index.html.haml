@@ -26,3 +26,17 @@
                   = link_to project.name, project_path(project)
                 %td
                   = link_to project.tasks.count, project_tasks_path(project, @task)
+    -if current_user.pivotaltoken
+      %h1
+        .page-header
+          Pivotal Tracker Projects
+      %table.table
+        %thead
+          %tr
+            %th
+              %b Name
+          %tbody
+            -@tracker_projects.each do |project|
+              %tr
+                %td
+                  = link_to project[:name], tracker_project_path(project[:id], name: project[:name])
