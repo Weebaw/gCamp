@@ -56,7 +56,8 @@ class ProjectsController < PrivateController
   end
 
   def ensure_current_user
-    if !current_user
+    unless current_user
+      session[:previous_page] = request.fullpath
       flash[:error] = "You must sign in"
       redirect_to sign_in_path
     end

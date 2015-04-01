@@ -37,7 +37,7 @@ class TasksController < PrivateController
   def update
     @task = @project.tasks.find(params[:id])
     if @task.update(task_params)
-      redirect_to project_tasks_path(@project, @task)
+      redirect_to project_tasks_path(@project)
       flash[:notice] = "Task was successfully updated"
     else
       render :edit
@@ -58,6 +58,7 @@ class TasksController < PrivateController
 
   def ensure_current_user
     unless current_user
+      session[:previous_page] = request.fullpath
       flash[:error] = "You must sign in"
       redirect_to sign_in_path
     end

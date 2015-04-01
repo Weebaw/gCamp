@@ -7,20 +7,44 @@ def sign_in_user
   click_button 'Sign in'
 end
 
-def create_task
-  visit projects_path
-  expect(page).to have_content "Projects"
+def create_project(options = {})
+  defaults = {
+    name: "Make Pocket Dog"
+  }
+  project = Project.create!(defaults.merge(options))
+end
 
-  click_on "school"
-  expect(page).to have_content "school"
+def create_task(options={})
+  Task.create!({
+    description: "Put dog in pocket",
+    project_id: create_project.id,
+    due_date: "1/31/2015"
+  }.merge(options))
+end
 
-  expect(page).to have_content "0 Tasks"
+def create_user(options={})
+  User.create!({
+    first_name: "Dirty",
+    last_name: "Randy",
+    email: "DirtyRandySeed#{rand(100000) + 1}@example.com",
+    password: "password",
+    password_confirmation: "password",
+    admin: true
+  }.merge(options))
+end
 
-  click_on "0 Tasks"
-  expect(page).to have_content "Tasks for school"
+def create_comment(options={})
+  Comment.create!({
+    content: "Pocket Dog?",
+    user_id: create_user.id,
+    task_id: create_task.id
+  }.merge(options))
+end
 
-  click_on "New Task"
-  fill_in :task_description, with: "homework"
-
-  click_on "Create Task"
+def create_membership(options={})
+  Membership.create!({
+    role: "Owner",
+    project_id: create_project.id,
+    user_id: create_user.id
+  }.merge(options))
 end

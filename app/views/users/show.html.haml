@@ -17,8 +17,9 @@
         %b Last Name
       %dd
         = @user.last_name
-    %p
-      %dt
-        %b Email
-      %dd
-        = mail_to @user.email
+    - if current_user == @user || current_user.admin || same_project(current_user, @user)
+      %p
+        %dt
+          %b Email
+        %dd
+          = mail_to @user.email

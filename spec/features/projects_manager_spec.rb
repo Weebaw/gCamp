@@ -7,16 +7,11 @@ feature 'Existing users CRUD users' do
     Project.destroy_all
   end
 
-  scenario "index lists all projects with name" do
-
-    bam = Project.new(name: 'bam')
-    bam.save!
+  scenario "index lists all projects" do
 
     sign_in_user
     expect(current_path).to eq projects_path
 
-    visit projects_path
-    expect(page).to have_content "bam"
   end
 
   scenario "can make a new project from the new project form" do
@@ -38,15 +33,15 @@ feature 'Existing users CRUD users' do
 
   scenario "index links to show via the name" do
 
-    bam = Project.new(name: 'bam')
-    bam.save!
-
     sign_in_user
+    user = create_user
+    project = create_project(user.id)
+
     visit projects_path
 
-    click_link 'bam'
+    click_link 'Make Pocket Dog'
 
-    expect(page).to have_content 'bam'
+    expect(page).to have_content 'Make Pocket Dog'
   end
 
   scenario "can edit user" do

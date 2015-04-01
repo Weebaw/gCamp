@@ -13,6 +13,7 @@ class AuthenticationController < ApplicationController
         redirect_to projects_path
       else
         redirect_to session[:previous_page]
+        session[:previous_page] = nil
       end
     else
       @authentication_error = "Email/password combination is invalid"
