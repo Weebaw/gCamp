@@ -1,5 +1,5 @@
 def sign_in_user
-  user = User.new(first_name: 'George', last_name: 'Clinton', email: 'parliament@mothershipconnection.com', password: 'bringthafunk', password_confirmation: 'bringthafunk')
+  user = User.new(first_name: 'George', last_name: 'Clinton', email: 'parliament@mothershipconnection.com', password: 'bringthafunk', password_confirmation: 'bringthafunk', admin: true)
   user.save!
   visit sign_in_path
   fill_in :email, with: 'parliament@mothershipconnection.com'

@@ -41,14 +41,12 @@ class UsersController < PrivateController
 
   def destroy
     user = User.find(params[:id])
-    if @user == current_user
-      user.destroy
+    if user == current_user && user.destroy
       redirect_to root_path, notice: "User was successfully deleted"
     else
-      user.destroy
-      redirect_to users_path
+      redirect_to users_path, notice: "User was successfully deleted"
+    end
   end
-end
 
   private
 

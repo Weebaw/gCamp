@@ -16,7 +16,7 @@ feature 'Existing users CRUD task' do
 
     create_task
 
-    expect(current_path).to eq project_tasks_path(project)
+    expect(current_path).to eq projects_path
   end
 
 

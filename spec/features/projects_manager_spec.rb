@@ -5,6 +5,7 @@ feature 'Existing users CRUD users' do
   before :each do
     User.destroy_all
     Project.destroy_all
+    user = create_user(admin: true)
   end
 
   scenario "index lists all projects" do
@@ -35,11 +36,9 @@ feature 'Existing users CRUD users' do
 
     sign_in_user
     user = create_user
-    project = create_project(user.id)
-
-    visit projects_path
-
-    click_link 'Make Pocket Dog'
+    project = create_project
+    membership = create_membership
+    visit project_path(project)
 
     expect(page).to have_content 'Make Pocket Dog'
   end
