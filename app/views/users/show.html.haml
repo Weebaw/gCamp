@@ -23,3 +23,7 @@
           %b Email
         %dd
           = mail_to @user.email
+        %dt
+          %b Pivotal Tracker Token
+        %dd
+          = @user.pivotaltoken[0...4]+"*****************"

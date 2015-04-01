@@ -30,6 +30,11 @@
         = f.password_field :password_confirmation, class: "form-control"
 
     .form-group
+      = f.label :pivotaltoken, 'Pivotal Tracker Token', class: "col-md-2 control-label"
+      .col-sm-7
+        = f.text_field :pivotaltoken, class: "form-control"
+
+    .form-group
       .col-sm-offset-2.col-sm-6
         = f.submit class: "btn btn-primary"
         = link_to "Cancel", users_path, class: "btn btn-default"
