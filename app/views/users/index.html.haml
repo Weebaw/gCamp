@@ -12,6 +12,7 @@
           Name
         %th
           Email
+        %th  
     %tbody
       - @users.each do |user|
         %tr
@@ -21,7 +22,7 @@
               = link_to user.last_name, user_path(user)
           %td
             %u
-              - if current_user == user || current_user.admin || same_project(current_user, user) 
+              - if current_user == user || current_user.admin || same_project(current_user, user)
                 = link_to user.email, user_path(user)
           %td
             .pull-right
