@@ -36,7 +36,7 @@
             %th
               %b Name
           %tbody
-            -if !(@tracker_projects == 403)
+            -if @tracker_projects.class == Array
               -@tracker_projects.each do |project|
                 %tr
                   %td

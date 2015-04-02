@@ -14,7 +14,7 @@ class ProjectsController < PrivateController
         if tracker_api.projects(current_user.pivotaltoken).class == Array
           @tracker_projects = tracker_api.projects(current_user.pivotaltoken)
         else
-          flash[:error] = "Your token is invalid"
+          flash.now[:error] = "Your token is invalid"
         end
       end
     end
