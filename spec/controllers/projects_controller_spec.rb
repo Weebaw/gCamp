@@ -1,19 +1,17 @@
 require 'rails_helper'
 
-describe ProjectsController do
-  before :each do
-    @user = create_user(admin: false)
-    session[:user_id] = @user.id
-    @project = create_project
-  end
+  describe ProjectsController do
+    before :each do
+      @user = create_user(admin: false)
+      session[:user_id] = @user.id
+      @project = create_project
+    end
 
   describe "#index" do
     it "assigns all projects with a title eat" do
       project = create_project(name: "eat")
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
-
       get :index
-
       expect(assigns(:projects)).to eq [project]
     end
   end
@@ -42,19 +40,19 @@ describe ProjectsController do
     end
   end
 
-    describe "#show" do
+  describe "#show" do
     it "displays the project show page" do
       get :show, id: @project
       expect(assigns(:project)).to eq(@project)
     end
 
 
-  it "does not display page for non_authenticated_users" do
-    session.clear
-    get :show, id: @user
-    expect(response).to redirect_to sign_in_path
+    it "does not display page for non_authenticated_users" do
+      session.clear
+      get :show, id: @user
+      expect(response).to redirect_to sign_in_path
+      end
     end
-  end
 
   describe "#edit" do
     it "displays edit project page" do
@@ -70,11 +68,10 @@ describe ProjectsController do
   end
 
   describe "can update a project with valid attributes" do
-  it "project owner can update projects" do
-
-    project = create_project(name: "Dog")
-    membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
-    expect {
+    it "project owner can update projects" do
+      project = create_project(name: "Dog")
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+      expect {
       patch :update, id: project.id, project: {name: "Cat"}}.to change {project.reload.name}.from("Dog").to("Cat")
 
       expect(flash[:notice]).to eq "Project was successfully updated"
@@ -91,29 +88,50 @@ describe ProjectsController do
       delete :destroy, id: project.id
     }.to change {Project.all.count}.by(-1)
 
-    expect(response).to redirect_to projects_path
-    expect(flash[:notice]).to eq("Project was successfully deleted")
+      expect(response).to redirect_to projects_path
+      expect(flash[:notice]).to eq("Project was successfully deleted")
 
     end
 
+    # it "does not allow non-owners to delete a project" do
+    #   project = create_project
+    #   membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Member")
+    #   task = create_task(project_id: @project.id)
+    #   expect{
+    #     delete :destroy, id: project.id
+    #   }.to change {Project.all.count}.by(-1)
+    #
+    #   expect(response).to redirect_to projects_path
+    #   expect(flash[:notice]).to eq("Project was successfully deleted")
+    # end
 
-  it "adminss can delete a project" do
-    session.clear
-    admin = create_user(admin: true)
-    project = create_project
-    membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
-    task = create_task(project_id: @project.id)
+    it 'redirects if the user does not have access' do
+      user = create_user(first_name: 'Todd', last_name: 'Samuels', email: 'todd@samuels.com', password: '1234', password_confirmation: '1234', admin: false)
+      session[:user_id] = user.id
+      project = create_project
+      membership = create_membership(project_id: project.id, user_id: user.id, role: "Member")
+      delete :destroy, id: project
+      expect(response).to redirect_to project_path(project)
+    end
 
-    session[:user_id] = admin.id
-    expect{
-      delete :destroy, id: project.id
-    }.to change {Project.all.count}.by(-1)
 
-    expect(response).to redirect_to projects_path
-    expect(flash[:notice]).to eq("Project was successfully deleted")
+    it "admins can delete a project" do
+      session.clear
+      admin = create_user(admin: true)
+      project = create_project
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+      task = create_task(project_id: @project.id)
 
+      session[:user_id] = admin.id
+      expect{
+        delete :destroy, id: project.id
+      }.to change {Project.all.count}.by(-1)
+
+      expect(response).to redirect_to projects_path
+      expect(flash[:notice]).to eq("Project was successfully deleted")
+
+    end
   end
-end
 
 
 end

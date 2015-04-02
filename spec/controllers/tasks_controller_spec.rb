@@ -51,16 +51,14 @@ describe TasksController do
     it "displays the show page" do
       get :show, project_id: @project.id, id: @task.id
         expect(response).to render_template :show
-
-      end
     end
+  end
 
   describe "#edit" do
     it "displays edit task page" do
       get :edit, project_id: @project.id, id: @task.id
       expect(response).to be_success
       expect(response).to render_template :edit
-
     end
   end
 
@@ -69,14 +67,12 @@ describe TasksController do
       project = create_project(name: "Hungry")
       task = create_task(description: "Eat pocket dog", project_id: project.id)
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
-        patch :update, project_id: project.id, id: task.id, task: {description: "Eat pocket dogs!"}
-        task.reload
-        expect(task.description).to eq("Eat pocket dogs!")
-
-        expect(response).to redirect_to project_tasks_path
+      patch :update, project_id: project.id, id: task.id, task: {description: "Eat pocket dogs!"}
+      task.reload
+      
+      expect(task.description).to eq("Eat pocket dogs!")
+      expect(response).to redirect_to project_tasks_path
       expect(flash[:notice]).to eq "Task was successfully updated"
-
-
     end
   end
 

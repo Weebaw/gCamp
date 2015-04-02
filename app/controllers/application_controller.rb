@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     def verify_owner
       unless current_user.membership_owner(@project) || current_user.admin == true
         flash[:error] = "You do not have access to that project"
-        redirect_to projects_path(@project)
+        redirect_to project_path(@project)
       end
     end
 

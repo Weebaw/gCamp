@@ -10,8 +10,6 @@ class User < ActiveRecord::Base
 
   has_many :memberships, dependent: :destroy
 
-  # has_many :tasks, through: :comments, dependent: :destroy
-
   has_many :comments
 
   def full_name
@@ -23,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def membership_owner(project)
-    if self.memberships.find_by(project_id: project.id)
+    if self.memberships.where(project_id: project.id)
       self.memberships.find_by(project_id: project.id).role == "Owner" || self.admin
     else
       false

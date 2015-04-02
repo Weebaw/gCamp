@@ -36,7 +36,8 @@
             %th
               %b Name
           %tbody
-            -@tracker_projects.each do |project|
-              %tr
-                %td
-                  = link_to project[:name], tracker_project_path(project[:id], project_name: project[:name])
+            -if !(@tracker_projects == 403)
+              -@tracker_projects.each do |project|
+                %tr
+                  %td
+                    = link_to project[:name], tracker_project_path(project[:id], project_name: project[:name])
