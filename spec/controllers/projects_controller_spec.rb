@@ -84,32 +84,32 @@ require 'rails_helper'
       project = create_project
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
       task = create_task(project_id: @project.id)
+
       expect{
-      delete :destroy, id: project.id
-    }.to change {Project.all.count}.by(-1)
+        delete :destroy, id: project.id
+      }.to change {Project.all.count}.by(-1)
 
       expect(response).to redirect_to projects_path
       expect(flash[:notice]).to eq("Project was successfully deleted")
 
     end
 
-    # it "does not allow non-owners to delete a project" do
-    #   project = create_project
-    #   membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Member")
-    #   task = create_task(project_id: @project.id)
-    #   expect{
-    #     delete :destroy, id: project.id
-    #   }.to change {Project.all.count}.by(-1)
-    #
-    #   expect(response).to redirect_to projects_path
-    #   expect(flash[:notice]).to eq("Project was successfully deleted")
-    # end
+    it "does not allow non-owners to delete a project" do
+      project = create_project
+      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Member")
+      task = create_task(project_id: @project.id)
+      expect{
+        delete :destroy, id: project.id
+      }.to change {Project.all.count}.by(0)
+
+      expect(response).to redirect_to project_path(project)
+    end
 
     it 'redirects if the user does not have access' do
-      user = create_user(first_name: 'Todd', last_name: 'Samuels', email: 'todd@samuels.com', password: '1234', password_confirmation: '1234', admin: false)
+      user = create_user(email: 'todd@samuels.com', admin: false)
       session[:user_id] = user.id
       project = create_project
-      membership = create_membership(project_id: project.id, user_id: user.id, role: "Member")
+      membership = create_membership(project, user, role: "Member")
       delete :destroy, id: project
       expect(response).to redirect_to project_path(project)
     end
@@ -119,7 +119,7 @@ require 'rails_helper'
       session.clear
       admin = create_user(admin: true)
       project = create_project
-      membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+      membership = create_membership(project, admin)
       task = create_task(project_id: @project.id)
 
       session[:user_id] = admin.id

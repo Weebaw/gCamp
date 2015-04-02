@@ -8,10 +8,10 @@ require 'rails_helper'
 
     scenario 'user can sign out' do
 
+      user = create_user
+      sign_in_user(user)
 
-      sign_in_user
-
-      expect(page).to have_content "George Clinton"
+      expect(page).to have_content "Dirty Randy"
 
       click_on "Sign Out"
 

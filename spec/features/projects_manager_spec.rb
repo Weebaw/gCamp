@@ -5,19 +5,19 @@ feature 'Existing users CRUD users' do
   before :each do
     User.destroy_all
     Project.destroy_all
-    user = create_user(admin: true)
+    @user = create_user(admin: true)
   end
 
   scenario "index lists all projects" do
 
-    sign_in_user
+    sign_in_user(@user)
     expect(current_path).to eq projects_path
 
   end
 
   scenario "can make a new project from the new project form" do
 
-    sign_in_user
+    sign_in_user(@user)
     visit (projects_path)
     within(".dropdown") do
       click_on 'New Project'
@@ -34,10 +34,10 @@ feature 'Existing users CRUD users' do
 
   scenario "index links to show via the name" do
 
-    sign_in_user
     user = create_user
+    sign_in_user(@user)
     project = create_project
-    membership = create_membership
+    membership = create_membership(project, @user)
     visit project_path(project)
 
     expect(page).to have_content 'Make Pocket Dog'
@@ -48,10 +48,12 @@ feature 'Existing users CRUD users' do
     bam = Project.new(name: 'bam')
     bam.save!
 
-    sign_in_user
+    sign_in_user(@user)
+    membership = create_membership(bam, @user)
+
     visit projects_path
 
-    click_link "bam"
+    within('.project_list') {click_link "bam"}
     click_link "Edit"
 
     fill_in :project_name, with: "bam!"
@@ -67,11 +69,13 @@ feature 'Existing users CRUD users' do
     bam = Project.new(name: 'bam')
     bam.save!
 
-    sign_in_user
+    sign_in_user(@user)
+    membership = create_membership(bam, @user)
+
     visit projects_path
 
-    click_on "bam"
-
+    within('.project_list') {click_link "bam"}
+    
     within(".well") do
       click_on "Delete"
     end

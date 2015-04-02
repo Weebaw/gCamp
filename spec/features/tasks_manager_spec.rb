@@ -6,12 +6,17 @@ feature 'Existing users CRUD task' do
     User.destroy_all
     Task.destroy_all
     Project.destroy_all
+    @user = create_user
+    sign_in_user(@user)
+    @project = Project.create!(name: 'school')
+    membership = create_membership(@project, @user)
+
+
   end
 
   scenario "can create a task" do
-    project = Project.create!(name: 'school')
 
-    sign_in_user
+
     expect(current_path).to eq projects_path
 
     create_task
@@ -21,15 +26,14 @@ feature 'Existing users CRUD task' do
 
 
   scenario "Project show page lists tasks" do
-    project = Project.create!(name: 'school')
 
-    sign_in_user
     expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
 
-    click_on "school"
+    within('.project_list') {click_link "school"}
+
     expect(page).to have_content "school"
 
     expect(page).to have_content "0 Tasks"
@@ -48,22 +52,20 @@ feature 'Existing users CRUD task' do
     click_on "Create Task"
 
     expect(page).to have_content "study"
-    expect(current_path).to eq project_tasks_path(project)
+    expect(current_path).to eq project_tasks_path(@project)
 end
 
 
 
   scenario "index links to show via the description" do
 
-    project = Project.create!(name: 'school')
 
-    sign_in_user
     expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
 
-    click_on "school"
+    within('.project_list') {click_link "school"}
     expect(page).to have_content "school"
 
     expect(page).to have_content "0 Tasks"
@@ -85,15 +87,13 @@ end
   scenario "can edit task" do
 
 
-    project = Project.create!(name: 'school')
 
-    sign_in_user
     expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
 
-    click_on "school"
+    within('.project_list') {click_link "school"}
     expect(page).to have_content "school"
 
     expect(page).to have_content "0 Tasks"
@@ -119,15 +119,13 @@ end
 
   scenario "can delete task from index" do
 
-    project = Project.create!(name: 'school')
 
-    sign_in_user
     expect(current_path).to eq projects_path
 
     visit projects_path
     expect(page).to have_content "Projects"
 
-    click_on "school"
+    within('.project_list') {click_link "school"}
     expect(page).to have_content "school"
 
     expect(page).to have_content "0 Tasks"

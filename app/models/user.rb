@@ -21,11 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def membership_owner(project)
-    if self.memberships.where(project_id: project.id)
-      self.memberships.find_by(project_id: project.id).role == "Owner" || self.admin
-    else
-      false
-    end
+    self.memberships.find_by(project_id: project.id).role == "Owner" || self.admin
   end
 
   def membership_member(project)

@@ -4,9 +4,11 @@ class MembershipsController < PrivateController
   before_action do
     @project = Project.find(params[:project_id])
   end
+  before_action :find_membership, except: [:index, :create]
   before_action :logged_in_users_without_access, only: [:edit, :update, :destroy]
   before_action :verify_membership, except: [:new, :create, :index]
   before_action :verify_owner, only: [:edit, :update]
+  before_action :verify_owner_or_self, only: [:destroy]
   before_action :ensure_last_owner, only: [:update, :destroy]
   before_action :ensure_current_user
 
@@ -27,7 +29,7 @@ class MembershipsController < PrivateController
   end
 
   def update
-    @membership = Membership.find(params[:id])
+    # @membership = Membership.find(params[:id])
     if @membership.update(membership_params)
       flash[:notice] = "#{@membership.user.full_name} was successfully updated"
       redirect_to project_memberships_path(@project.id)
@@ -37,18 +39,21 @@ class MembershipsController < PrivateController
   end
 
   def destroy
-    membership = Membership.find(params[:id])
-    membership.destroy
-    if current_user.id == membership.user_id
-      flash[:notice] = "#{membership.user.full_name} was successfully removed"
+    # membership = Membership.find(params[:id])
+    @membership.destroy
+    if current_user.id == @membership.user_id
+      flash[:notice] = "#{@membership.user.full_name} was successfully removed"
     redirect_to projects_path
     else
-      flash[:notice] = "#{membership.user.full_name} was successfully removed"
+      flash[:notice] = "#{@membership.user.full_name} was successfully removed"
       redirect_to project_memberships_path
     end
   end
 
 private
+  def find_membership
+    @membership = Membership.find(params[:id])
+  end
 
   def logged_in_users_without_access
     unless current_user.memberships.pluck(:project_id).include?(@project.id) || current_user.admin == true

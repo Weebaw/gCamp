@@ -1,9 +1,7 @@
-def sign_in_user
-  user = User.new(first_name: 'George', last_name: 'Clinton', email: 'parliament@mothershipconnection.com', password: 'bringthafunk', password_confirmation: 'bringthafunk', admin: true)
-  user.save!
+def sign_in_user(user)
   visit sign_in_path
-  fill_in :email, with: 'parliament@mothershipconnection.com'
-  fill_in :password, with: 'bringthafunk'
+  fill_in :email, with: user.email
+  fill_in :password, with: 'password'
   click_button 'Sign in'
 end
 
@@ -41,10 +39,10 @@ def create_comment(options={})
   }.merge(options))
 end
 
-def create_membership(options={})
+def create_membership(project, user, role="Owner")
   Membership.create!({
-    role: "Owner",
-    project_id: create_project.id,
-    user_id: create_user.id
-  }.merge(options))
+    role: role,
+    project_id: project.id,
+    user_id: user.id
+  })
 end

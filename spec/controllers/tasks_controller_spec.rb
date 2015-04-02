@@ -7,7 +7,7 @@ describe TasksController do
     session[:user_id] = @user.id
     @project = create_project
     @task = create_task(project_id: @project.id)
-    @membership = create_membership(project_id: @project.id, user_id: @user.id, role: "Member")
+    @membership = create_membership(@project, @user, role: "Member")
 
   end
 
@@ -69,7 +69,7 @@ describe TasksController do
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
       patch :update, project_id: project.id, id: task.id, task: {description: "Eat pocket dogs!"}
       task.reload
-      
+
       expect(task.description).to eq("Eat pocket dogs!")
       expect(response).to redirect_to project_tasks_path
       expect(flash[:notice]).to eq "Task was successfully updated"

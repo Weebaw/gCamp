@@ -4,23 +4,23 @@ feature 'Existing users CRUD users' do
 
   before :each do
     User.destroy_all
+    @user = create_user
+    sign_in_user(@user)
   end
 
   scenario "index lists all users with name, and email" do
 
-    sign_in_user
     expect(current_path).to eq projects_path
 
     visit users_path
     expect(page).to have_content "Users"
-    expect(page).to have_content "George"
-    expect(page).to have_content "Clinton"
-    expect(page).to have_content "parliament@mothershipconnection.com"
+    expect(page).to have_content "Dirty"
+    expect(page).to have_content "Randy"
+    expect(page).to have_content @user.email
   end
 
   scenario "can make a new user from the new user form" do
 
-    sign_in_user
     visit (users_path)
     click_link 'New User'
 
@@ -40,20 +40,18 @@ feature 'Existing users CRUD users' do
 
   scenario "index links to show via the name" do
 
-    sign_in_user
     visit users_path
 
-    click_link 'George'
+    click_link 'Dirty'
 
-    expect(page).to have_content 'parliament@mothershipconnection.com'
+    expect(page).to have_content @user.email
   end
 
   scenario "can edit user" do
 
-    sign_in_user
     visit users_path
 
-    click_link "George"
+    click_link "Dirty"
     click_link "Edit"
 
     expect(page).to have_content "Edit User"
@@ -75,7 +73,6 @@ feature 'Existing users CRUD users' do
     password_confirmation: 'livinonaprayer')
     user.save!
 
-    sign_in_user
     visit users_path
 
     click_on "Jon"
