@@ -14,7 +14,9 @@ require 'rails_helper'
       it "allows admin users" do
          user = create_user(admin: true)
          session[:user_id] = user.id
+
          get :index
+
          expect(response).to be_success
       end
 
@@ -58,7 +60,9 @@ require 'rails_helper'
 
     describe '#show' do
       it "displays user show page"do
+
         get :show, id: @user
+
         expect(assigns(:user)).to eq(@user)
         expect(response).to render_template :show
       end
@@ -66,21 +70,27 @@ require 'rails_helper'
 
       it "does not display page for non_authenticated_users" do
         session.clear
+
         get :show, id: @user
+
         expect(response).to redirect_to sign_in_path
       end
     end
 
     describe "#edit" do
       it "displays edit for the current user" do
+
       get :edit, id: @user
+
       expect(assigns(:user)).to eq(@user)
       expect(response).to render_template :edit
     end
 
       it "does not display page for non_authenticated_users" do
         session.clear
+
         get :edit, id: @user
+
         expect(response).to redirect_to sign_in_path
       end
     end

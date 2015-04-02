@@ -54,7 +54,9 @@ require 'rails_helper'
       project = create_project
       membership_admin = create_membership(@project, @user)
       @membership.update_attributes(role: "Member")
+
       patch :update, project_id: @project.id, id: @membership.id, membership: {role: "Owner"}
+
       expect(response).to redirect_to project_memberships_path(@project)
     end
   end
@@ -65,7 +67,9 @@ require 'rails_helper'
       session[:user_id] = @user.id
       project = create_project
       membership = create_membership(project, @user)
+
       patch :update, project_id: project.id, id: membership.id, membership: {role: "Member"}
+      
       expect(response).to redirect_to project_memberships_path(project)
     end
 

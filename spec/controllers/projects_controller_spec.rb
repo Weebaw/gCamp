@@ -11,7 +11,9 @@ require 'rails_helper'
     it "assigns all projects with a title eat" do
       project = create_project(name: "eat")
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+
       get :index
+
       expect(assigns(:projects)).to eq [project]
     end
   end
@@ -19,6 +21,7 @@ require 'rails_helper'
   describe "#new" do
     it "renders the new page" do
       get :new
+
       expect(response).to render_template("new")
     end
   end
@@ -34,6 +37,7 @@ require 'rails_helper'
         }.to change{Project.all.count}.by(1)
 
         project = Project.last
+
         expect(project.name).to eq "Brovloski"
         expect(flash[:notice]).to eq "Project was successfully created"
       end
@@ -42,27 +46,35 @@ require 'rails_helper'
 
   describe "#show" do
     it "displays the project show page" do
+
       get :show, id: @project
+
       expect(assigns(:project)).to eq(@project)
     end
 
 
     it "does not display page for non_authenticated_users" do
       session.clear
+
       get :show, id: @user
+
       expect(response).to redirect_to sign_in_path
       end
     end
 
   describe "#edit" do
     it "displays edit project page" do
+
       get :edit, id: @project.id
+
       expect(assigns(:project)).to eq(@project)
     end
 
     it "does not display page for non_authenticated_users" do
       session.clear
+
       get :edit, id: @project
+
       expect(response).to redirect_to sign_in_path
     end
   end
@@ -71,6 +83,7 @@ require 'rails_helper'
     it "project owner can update projects" do
       project = create_project(name: "Dog")
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Owner")
+
       expect {
       patch :update, id: project.id, project: {name: "Cat"}}.to change {project.reload.name}.from("Dog").to("Cat")
 
@@ -98,6 +111,7 @@ require 'rails_helper'
       project = create_project
       membership = Membership.create!(user_id: @user.id, project_id: project.id, role: "Member")
       task = create_task(project_id: @project.id)
+
       expect{
         delete :destroy, id: project.id
       }.to change {Project.all.count}.by(0)
@@ -121,8 +135,8 @@ require 'rails_helper'
       project = create_project
       membership = create_membership(project, admin)
       task = create_task(project_id: @project.id)
-
       session[:user_id] = admin.id
+      
       expect{
         delete :destroy, id: project.id
       }.to change {Project.all.count}.by(-1)
